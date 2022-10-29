@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProductAttributesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('product_attributes', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('prod_id');
+            $table->string('size')->nullable();
+            $table->double('regular_price', 10, 2)->nullable();
+            $table->double('sale_price', 10, 2);
+            $table->integer('discount')->nullable();
+            $table->string('color')->nullable();
+            $table->string('qty');
+            $table->string('images');
+            $table->foreign('prod_id')->references('id')->on('products')->onDelete('cascade');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('product_attributes');
+    }
+}
